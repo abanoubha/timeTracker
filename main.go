@@ -21,7 +21,7 @@ type LogEntry struct {
 func main() {
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
-		log.Fatal("error getting user home directory: %v", err)
+		log.Fatalf("error getting user home directory: %v", err)
 	}
 
 	logFilePath := filepath.Join(homeDir, logFileName)
