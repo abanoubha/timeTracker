@@ -12,12 +12,6 @@ import (
 
 const logFileName = "laptop_uptime.log"
 
-type LogEntry struct {
-	StartTime time.Time
-	EndTime   time.Time
-	Duration  time.Duration
-}
-
 func main() {
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
