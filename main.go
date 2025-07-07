@@ -95,26 +95,3 @@ func formatDuration(d time.Duration) string {
 		}(),
 	)
 }
-
-func displayLogs() {
-	homeDir, err := os.UserHomeDir()
-	if err != nil {
-		log.Fatalf("error getting user home directory: %v", err)
-	}
-
-	logFilePath := filepath.Join(homeDir, logFileName)
-
-	content, err := os.ReadFile(logFilePath)
-	if err != nil {
-		if os.IsNotExist(err) {
-			fmt.Println("no log file found yet.")
-			return
-		}
-
-		log.Printf("error reading log file: %v", err)
-		return
-	}
-
-	fmt.Println("\n--- Laptop Uptime Log ---")
-	fmt.Println(string(content))
-}
