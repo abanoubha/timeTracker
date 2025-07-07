@@ -1,4 +1,4 @@
-Title: Tracking My Work Hours in 100 LoC
+Title: Tracking My Work Hours in 81 LoC
 ---
 
 Today, I felt the need to track my spent time on my work computer.
