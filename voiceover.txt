@@ -1,0 +1,95 @@
+Title: Tracking My Work Hours in 100 LoC
+---
+
+Today, I felt the need to track my spent time on my work computer.
+
+So, I created a new simple Go project to log the total time I spend on the work computer.
+
+I created a directory, and got inside it.
+
+initiate a module with Go mod init.
+
+created a new main.go file in neovim.
+
+create a constant for the log file name.
+
+in the main function, get the user home directory.
+
+create the full path of the log file.
+
+save the current time as the start time.
+
+create a signal channel with a buffer of size 1 ,
+and let the operating system notify us (the program) via the buffered channel
+if an interrupt signal or termination signal is occurred.
+
+it basically say:
+
+"Hey, operating system, if you ever send an Interrupt signal (Ctrl+C) or a Terminate signal to this program, please put a notification about that signal into the sigChan channel."
+
+create a goroutine for handlining the reception of signal and the logging.
+
+this line receives the signal channel, it is written like this to block this coroutine (goroutine) until a signal is received.
+
+when receiving a interruption or termination signal,
+save the current time as the end time, and calculate the duration of work.
+
+then log the session start and end times and the work duration.
+
+end the program gracefully.
+
+The program is calculating the work time by saving the time the program starts and the time the program ends and the elapsed time between them is the work time. If you add the program in the startup programs in your operating system, your work time will be accurate to the time you power on your work laptop until you shut it down.
+
+In my case, I added the program's full path in the startup programs in Ubuntu Linux.
+
+---
+
+Here is how we log the session, create an entry variable.
+session started then a string placeholder for start time formatted by RFC1123,
+then session end followed by a string placeholder for the end time formatted in RFC1123 as well.
+then duration followed by a string placeholder for the neat format of work duration. we'll explain it in a bit.
+
+open the logging file for edit or create or write and read permissions.
+
+write the entry variable into the end of the log file.
+
+---
+
+Here is how we format work duration.
+
+First, we figure out how many full days are in our total time by dividing the total hours by 24.
+
+Then, we find the remaining hours by taking the total hours and seeing what's left over after we've accounted for all the full days.
+
+Next, we do the same for minutes: we take the remaining hours, convert them to minutes, and see what's left over after we've accounted for all the full hours.
+
+And finally, we get the remaining seconds in the same way, from the leftover minutes.
+
+Let's save those into an empty list.
+
+We start by making an empty list to hold the different parts of our time, like days, hours, and so on.
+
+Then, if we've calculated any days, we add them to our list, formatted like "5d" for five days.
+
+Next, we check for hours. We add them to the list if there are any, or if we've already added days. This makes sure our time format stays consistent, like "1d 2h" or just "2h".
+
+Then, for minutes, we add them to the list if there are any minutes left over, or if we've already included hours or days. This helps build out the time string, like "1d 2h 30m" or "45m".
+
+And finally, we always add the seconds to the list, because seconds are the smallest unit and should always be shown.
+
+Finally, we put all those time pieces together into one clear sentence.
+
+We start with the very first part we found – like the "days".
+
+Then, we check if there's a second part, like "hours". If there is, we add it right after, so it looks good.
+
+We do the same for the third part, if it exists – maybe "minutes". We neatly append that.
+
+And we repeat this one last time for the fourth part, if it's there – like "seconds" – making sure everything is joined up smoothly.
+
+This way, we create a complete, easy-to-read duration like "1d 2h 30m 5s" or just "45s", depending on what time components we had.
+
+That's it for my simple tracker for work hours.
+
+If you have any questions, leave them in comments and I'll make sure to answer them all.
+

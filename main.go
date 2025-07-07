@@ -74,10 +74,13 @@ func formatDuration(d time.Duration) string {
 	if days > 0 {
 		parts = append(parts, fmt.Sprintf("%dd", days))
 	}
-	if hours > 0 || len(parts) > 0 {
+	if hours > 0 || len(parts) > 0 { // include hours if non-zero or if days are present
+		parts = append(parts, fmt.Sprintf("%dh", hours))
+	}
+	if minutes > 0 || len(parts) > 0 { // include minutes if non-zero or if hours/days are present
 		parts = append(parts, fmt.Sprintf("%dm", minutes))
 	}
-	parts = append(parts, fmt.Sprintf("%ds", seconds))
+	parts = append(parts, fmt.Sprintf("%ds", seconds)) // always include seconds
 
 	return fmt.Sprintf("%s",
 		parts[0]+func() string {
