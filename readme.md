@@ -29,3 +29,9 @@ Just put the program (timeTracker) in the list of startup programs in your opera
 3. build the program from source by `go mod tidy && go build -o timeTracker .`
 4. add the path to timeTracker program file in the startup (according to your operating system)
 
+## Roadmap: versioned tasks
+
+- v25.07.07
+  - track time by saving the initial start time and the end time into a log file
+- next
+  - add CLI args `timeTracker -v|--view` to see the log file in terminal/stdout
