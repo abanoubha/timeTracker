@@ -44,7 +44,7 @@ func main() {
 }
 
 func logSession(filePath string, start, end time.Time, duration time.Duration) {
-	entry := fmt.Sprintf("Session Started: %s | Session End: %s | Duration: %s\n", start.Format(time.RFC1123), end.Format(time.RFC1123), formatDuration(duration))
+	entry := fmt.Sprintf("Session Start: %s|End: %s|Duration: %s\n", start.Format(time.RFC1123), end.Format(time.RFC1123), formatDuration(duration))
 
 	f, err := os.OpenFile(filePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
